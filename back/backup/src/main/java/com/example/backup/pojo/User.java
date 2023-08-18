@@ -19,4 +19,10 @@ public class User {
     private String username;
     private String password;
     private String photo;
+
+    public User(Integer id, String username, String password) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+    }
 }
