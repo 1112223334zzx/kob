@@ -9,7 +9,7 @@ import NavBar from "./components/NavBar.vue"
 import TestApi from "./components/TestApi.vue"
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap/dist/js/bootstrap"
-import $ from "jquery"
+/* import $ from "jquery" */
 export default {
   name: 'App',
   components: {
@@ -17,7 +17,7 @@ export default {
     TestApi,
   },
   setup(){
-        $.ajax({
+/*         $.ajax({
             url:"http://localhost:3000/user/account/token/",
             type:"post",
             data:{
@@ -56,7 +56,7 @@ export default {
           success(resp){
             console.log(resp);
           }
-        })
+        }) */
     }
 
 
