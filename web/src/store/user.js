@@ -19,6 +19,13 @@ export default {
         },
         updateToken(state,token){
             state.token = token;
+        },
+        logout(state){
+            state.id = "";
+            state.username = "";
+            state.token = "";
+            state.photo = "";
+            state.is_login = false;
         }
     },
     actions: {
@@ -30,6 +37,8 @@ export default {
                     username:data.username,
                     password:data.password,
                 },
+                
+
                 success(resp){
                     console.log("success~");
                     if(resp.error_message === "success"){
@@ -41,9 +50,36 @@ export default {
                     }
                 },
                 error(resp){
+                    console.log("1");
                     data.error(resp)
                 }
             })
+        },
+        getinfo(context,data){
+            $.ajax({
+                url:"http://localhost:3000/user/account/info/",
+                type:"get",
+                headers:{
+                  Authorization:"Bearer " + context.state.token,
+                },
+                success(resp){
+                  if(resp.error_message === "success"){
+                    context.commit("updateUser",{
+                        ...resp,
+                        is_login:true,
+                    });
+                    data.success(resp);
+                  }else{
+                    data.error(resp);
+                  }
+                },
+                error(resp){
+                  console.log(resp);
+                }
+              })
+        },
+        logout(context) {
+            context.commit("logout");
         }
     },
     modules: {
