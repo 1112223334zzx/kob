@@ -20,11 +20,18 @@ public class UserController {
     @Autowired
     UserMapper userMapper;
 
+    //index
+    @GetMapping("/")
+    public String index(){
+        return "首页qwq";
+    }
+
 
     @GetMapping("/user/all/")
     public List<User> getAll(){
         return userMapper.selectList(null);
     }
+
     @GetMapping("/user/{userId}/")
     public User getUser(@PathVariable int userId){
         return userMapper.selectById(userId);
