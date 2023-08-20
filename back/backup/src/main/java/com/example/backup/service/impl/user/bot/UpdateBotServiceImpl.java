@@ -33,7 +33,7 @@ public class UpdateBotServiceImpl implements UpdateBotService {
         String content = data.get("content");
 
         Map<String, String> map = new HashMap<>();
-        if (title == null || title.length() == 0) {
+        if (title == null || title.isEmpty()) {
             map.put("error_message", "标题不能为空");
             return map;
         }
@@ -43,7 +43,7 @@ public class UpdateBotServiceImpl implements UpdateBotService {
             return map;
         }
 
-        if (description == null || description.length() == 0) {
+        if (description == null || description.isEmpty()) {
             description = "这个用户很懒，什么也没留下~";
         }
 
@@ -74,7 +74,7 @@ public class UpdateBotServiceImpl implements UpdateBotService {
         );
         botMapper.updateById(new_bot);
 
-        map.put("error_message", "update success");
+        map.put("error_message", "success");
 
         return map;
 
