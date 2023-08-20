@@ -17,7 +17,7 @@ export default {
     TestApi,
   },
   setup(){
-/*         $.ajax({
+  /*       $.ajax({
             url:"http://localhost:3000/user/account/token/",
             type:"post",
             data:{
@@ -43,9 +43,9 @@ export default {
           error(resp){
             console.log(resp);
           }
-        }),
+        }), */
 
-        $.ajax({
+/*         $.ajax({
           url:"http://localhost:3000/user/account/register/",
           type:"post",
           data:{
