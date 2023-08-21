@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import ContentView from "../../components/ContentView"
+import ContentView from "../../components/ContentView.vue"
 export default{
     components:{
         ContentView,
