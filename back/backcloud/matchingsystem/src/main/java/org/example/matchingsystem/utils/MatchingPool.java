@@ -8,6 +8,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
@@ -25,10 +26,10 @@ public class MatchingPool extends Thread{
     public void setRestTemplate(RestTemplate restTemplate){
         MatchingPool.restTemplate = restTemplate;
     }
-    public void addPlayer(Integer userId,Integer rating){
+    public void addPlayer(Integer userId,Integer rating,Integer botId){
         lock.lock();
         try {
-            players.add(new Player(userId,rating,0));
+            players.add(new Player(userId,rating,botId,0));
         }
         finally {
             lock.unlock();
@@ -40,8 +41,9 @@ public class MatchingPool extends Thread{
         try {
             List<Player> newPlayers = new ArrayList<>();
             for(Player player:players){
-                if (!player.getUserId().equals(userId))
+                if (!player.getUserId().equals(userId)){
                     newPlayers.add(player);
+                }
             }
             players = newPlayers;
         }
@@ -85,6 +87,7 @@ public class MatchingPool extends Thread{
     public boolean checkMatched(Player a,Player b){
         int ratingDelta = Math.abs(a.getRating() - b.getRating());
         int waitingTime = Math.min(a.getWaitingTime(),b.getWaitingTime());
+        if (Objects.equals(a.getUserId(), b.getUserId())) return false; //解决自己匹配自己的问题！
         return ratingDelta <= waitingTime;
     }
 
@@ -92,7 +95,9 @@ public class MatchingPool extends Thread{
         System.out.println("send result:"+ a + " " + b);
         MultiValueMap<String,String> data = new LinkedMultiValueMap<>();
         data.add("a_id",a.getUserId().toString());
+        data.add("a_bot_id",a.getBotId().toString());
         data.add("b_id",b.getUserId().toString());
+        data.add("b_bot_id",b.getBotId().toString());
         restTemplate.postForObject(startGameUrl,data, String.class);
     }
 

@@ -19,6 +19,7 @@
         <module>matchingsystem</module>
         <module>backup</module>
         <module>backup</module>
+        <module>botrunningsystem</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>
